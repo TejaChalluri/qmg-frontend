@@ -1,0 +1,427 @@
+/* 
+.welcome-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  overflow: hidden;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+}
+
+
+.welcome-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 60px 80px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+  animation: fadeSlide 1.2s ease forwards;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+
+.title {
+  font-size: 42px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+
+.login-btn {
+  padding: 14px 40px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: #764ba2;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: #f1f1f1;
+}
+
+
+@keyframes fadeSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.background-animation span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: float 20s linear infinite;
+  bottom: -150px;
+}
+
+
+.background-animation span:nth-child(1) {
+  width: 120px;
+  height: 120px;
+  left: 10%;
+  animation-duration: 18s;
+}
+
+.background-animation span:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  animation-duration: 25s;
+}
+
+.background-animation span:nth-child(3) {
+  width: 150px;
+  height: 150px;
+  left: 80%;
+  animation-duration: 22s;
+}
+
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+  }
+} */
+
+
+
+/* Full screen - no scroll */
+.welcome-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, #f8faff 0%, #f0f5ff 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Soft animated background elements */
+.bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.bg-pattern span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(60px);
+  z-index: 0;
+  animation: float 25s infinite alternate;
+}
+
+.bg-pattern span:nth-child(1) {
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #a7c0fd 0%, #c2a7fd 100%);
+  top: -250px;
+  left: -150px;
+}
+
+.bg-pattern span:nth-child(2) {
+  width: 450px;
+  height: 450px;
+  background: linear-gradient(135deg, #b8e1ff 0%, #d0bbff 100%);
+  bottom: -200px;
+  right: -100px;
+  animation-delay: 2s;
+}
+
+.bg-pattern span:nth-child(3) {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #ffd6e7 0%, #ffc2d9 100%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(90px);
+  animation-delay: 1s;
+}
+
+/* Glass card - perfectly centered */
+.welcome-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 50px 45px;
+  border-radius: 48px;
+  width: 480px;
+  max-width: 90vw;
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 20, 50, 0.15),
+    0 5px 15px 0 rgba(0, 0, 0, 0.02),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 2;
+  position: relative;
+  animation: scaleIn 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin: 0;
+  transform: translateY(0);
+}
+
+/* Brand icon */
+.brand-icon {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.brand-icon svg {
+  background: linear-gradient(145deg, #f8faff, #ffffff);
+  padding: 14px;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px -8px rgba(45, 58, 94, 0.2);
+  width: 56px;
+  height: 56px;
+}
+
+/* Welcome title */
+.welcome-title {
+  font-size: 38px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  line-height: 1.2;
+  color: #1e2b4f;
+  letter-spacing: -1px;
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, #2d3a5e, #4a5f8a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Subtitle */
+.welcome-subtitle {
+  font-size: 15px;
+  color: #6b7a99;
+  margin: 0 auto 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 340px;
+}
+
+/* Feature badges */
+.feature-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.badge {
+  background: linear-gradient(145deg, #f8faff, #f0f5ff);
+  padding: 6px 16px;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2d3a5e;
+  border: 1px solid rgba(124, 141, 181, 0.15);
+  box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -6px rgba(45, 58, 94, 0.15);
+  border-color: rgba(124, 141, 181, 0.3);
+}
+
+/* Get started button */
+.get-started-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(145deg, #2d3a5e, #1e2b4f);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+  margin-bottom: 20px;
+  box-shadow: 0 15px 30px -8px rgba(30, 43, 79, 0.3);
+  min-width: 200px;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+  width: 18px;
+  height: 18px;
+}
+
+.get-started-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 35px -8px rgba(30, 43, 79, 0.4);
+  background: linear-gradient(145deg, #334267, #253458);
+}
+
+.get-started-btn:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+.get-started-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 10px 20px -8px rgba(30, 43, 79, 0.4);
+}
+
+/* Login hint - now pointing to Register */
+.login-hint {
+  font-size: 14px;
+  color: #7c8db5;
+  margin: 0;
+}
+
+.login-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3a5e;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  margin-left: 4px;
+}
+
+.login-link:hover {
+  color: #1e2b4f;
+  text-decoration-color: #2d3a5e;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(40px, 40px) scale(1.2);
+  }
+}
+
+/* No scroll, perfect fit for all screens */
+@media (max-width: 768px) {
+  .welcome-card {
+    padding: 40px 35px;
+    border-radius: 40px;
+    width: 440px;
+  }
+
+  .welcome-title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-card {
+    padding: 35px 25px;
+    border-radius: 36px;
+    width: 380px;
+  }
+
+  .welcome-title {
+    font-size: 30px;
+  }
+
+  .welcome-subtitle {
+    font-size: 14px;
+    max-width: 280px;
+  }
+
+  .feature-badges {
+    flex-wrap: wrap;
+  }
+  
+  .badge {
+    white-space: normal;
+    padding: 5px 12px;
+  }
+
+  .brand-icon svg {
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+  .welcome-card {
+    padding: 30px 20px;
+    width: 320px;
+  }
+
+  .welcome-title {
+    font-size: 26px;
+  }
+}
+
+/* Subtle overlay */
+.welcome-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}

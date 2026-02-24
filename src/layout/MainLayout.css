@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  background: #f4f7fe;
+}
+
+/* SIDEBAR */
+.sidebar {
+  height: 100vh;
+  background: linear-gradient(180deg, #0f172a, #1e293b);
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 30px 10px;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px 15px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.profile-section {
+  justify-self: right;
+}
+
+.sidebar a.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.menu-icon {
+  margin-left: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+}
+
+/* CONTENT */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  margin-left: 220px;
+  transition: margin-left 0.3s ease;
+}
+
+.content-box {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
