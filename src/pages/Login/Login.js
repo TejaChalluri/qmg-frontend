@@ -1,133 +1,3 @@
-// import { useState } from "react";
-// import { loginUser } from "../../services/authService";
-// import { useNavigate } from "react-router-dom";
-// import "./Login.css";
-
-// function Login() {
-//   const [form, setForm] = useState({
-//     usernameOrEmail: "",
-//     password: ""
-//   });
-
-//   const [errors, setErrors] = useState({});
-//   const navigate = useNavigate();
-
-//   // ✅ Validation
-//   const validate = () => {
-//     let newErrors = {};
-
-//     if (!form.usernameOrEmail.trim()) {
-//       newErrors.usernameOrEmail = "Username or Email is required";
-//     }
-
-//     if (!form.password.trim()) {
-//       newErrors.password = "Password is required";
-//     }
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   // ✅ Submit
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validate()) return;
-
-//     try {
-//       const response = await loginUser(
-//         form.usernameOrEmail,
-//         form.password
-//       );
-
-//       // ✅ Navigate only if success
-//       if (response.message === "OTP sent successfully") {
-//         navigate("/otp", { state: form });
-//       }
-
-//     } catch (error) {
-//       // ❌ Stay on login page
-//       setErrors({
-//         general: error.message
-//       });
-//     }
-//   };
-
-//   return (
-//     <div className="login-wrapper">
-//       <div className="bg-animation">
-//         <span></span>
-//         <span></span>
-//         <span></span>
-//       </div>
-
-//       <div className="login-card">
-//         <h2 className="login-title">Welcome Back</h2>
-//         <p className="login-subtitle">Login to continue</p>
-
-//         <form onSubmit={handleSubmit}>
-
-//           {/* GENERAL ERROR */}
-//           {errors.general && (
-//             <div className="error-text">
-//               {errors.general}
-//             </div>
-//           )}
-
-//           {/* USERNAME FIELD */}
-//           <div className="input-group">
-//             <input
-//               type="text"
-//               placeholder="Username or Email"
-//               className={errors.usernameOrEmail ? "error-input" : ""}
-//               value={form.usernameOrEmail}
-//               onChange={(e) => {
-//                 setForm({ ...form, usernameOrEmail: e.target.value });
-//                 setErrors({ ...errors, usernameOrEmail: "", general: "" });
-//               }}
-//             />
-//             {errors.usernameOrEmail && (
-//               <div className="error-text">
-//                 {errors.usernameOrEmail}
-//               </div>
-//             )}
-//           </div>
-
-//           {/* PASSWORD FIELD */}
-//           <div className="input-group">
-//             <input
-//               type="password"
-//               placeholder="Password"
-//               className={errors.password ? "error-input" : ""}
-//               value={form.password}
-//               onChange={(e) => {
-//                 setForm({ ...form, password: e.target.value });
-//                 setErrors({ ...errors, password: "", general: "" });
-//               }}
-//             />
-//             {errors.password && (
-//               <div className="error-text">
-//                 {errors.password}
-//               </div>
-//             )}
-//           </div>
-
-//           <button className="login-btn" type="submit">
-//             Login
-//           </button>
-
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Login;
-
-
-
-
-
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
@@ -142,7 +12,6 @@ function Login() {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // ✅ Validation
   const validate = () => {
     let newErrors = {};
 
@@ -169,6 +38,7 @@ function Login() {
         form.usernameOrEmail,
         form.password
       );
+     
 
       // ✅ Navigate only if success
       if (response.message === "OTP sent successfully") {
@@ -192,6 +62,12 @@ function Login() {
       </div>
 
       <div className="login-card">
+      <button
+    className="back-btn"
+    onClick={() => navigate("/")}
+  >
+    ← Welcome
+  </button>
         <h2 className="login-title">Welcome Back</h2>
         <p className="login-subtitle">Login to continue</p>
 

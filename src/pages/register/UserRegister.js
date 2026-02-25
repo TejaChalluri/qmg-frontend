@@ -113,6 +113,12 @@ function UserRegister() {
       </div>
 
       <div className="register-card">
+        <button
+    className="back-btn"
+    onClick={() => navigate("/login")}
+  >
+    ← Login
+  </button>
         <div className="register-header">
           <h2 className="register-title">Create Account</h2>
           <p className="register-subtitle">Join QMG Portal today</p>
@@ -191,33 +197,6 @@ function UserRegister() {
               <div className="error-message">{errors.email}</div>
             )}
           </div>
-
-          {/* PASSWORD */}
-          {/* <div className="input-field">
-            <label>Password</label>
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="••••••••"
-                value={form.password}
-                onChange={handleChange}
-                className={errors.password ? "error" : ""}
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
-              </button>
-            </div>
-            {errors.password && (
-              <div className="error-message">{errors.password}</div>
-            )}
-            <span className="input-hint">Minimum 6 characters</span>
-          </div> */}
-
           <div className="input-field">
   <label>Password</label>
 

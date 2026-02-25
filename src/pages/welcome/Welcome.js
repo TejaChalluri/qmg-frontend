@@ -1,38 +1,3 @@
-// import { useNavigate } from "react-router-dom";
-// import "./Welcome.css";
-
-// function Welcome() {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="welcome-wrapper">
-//       <div className="background-animation">
-//         <span></span>
-//         <span></span>
-//         <span></span>
-//       </div>
-
-//       <div className="welcome-card">
-//         <h1 className="title">Welcome to QMG Portal</h1>
-//         <p className="subtitle">
-//           Secure. Fast. Professional Dashboard Experience.
-//         </p>
-
-//         <button
-//           className="login-btn"
-//           onClick={() => navigate("/login")}
-//         >
-//           Login
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Welcome;
-
-
-
 import { useNavigate } from "react-router-dom";
 import "./Welcome.css";
 

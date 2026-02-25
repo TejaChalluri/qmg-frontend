@@ -388,6 +388,26 @@
 }
 
 
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2d3a5e;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: 0.2s ease;
+}
+
+.back-btn:hover {
+  color: #1e2b4f;
+  transform: translateX(-2px);
+}
+
 
 /* Remove Edge / IE default password reveal icon */
 input[type="password"]::-ms-reveal,
