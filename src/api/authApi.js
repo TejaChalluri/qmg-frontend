@@ -37,6 +37,7 @@ export const verifyOtpApi = async (data) => {
 
 
 
+
 export const registerApi = async (data) => {
   try {
     const response = await fetch(`${API_CONFIG.USER_BASE_URL || API_CONFIG.AUTH_BASE_URL}/register`, {
@@ -48,9 +49,8 @@ export const registerApi = async (data) => {
       body: JSON.stringify(data),
     });
 
-    // Get response as text first
+
     const text = await response.text();
-    // Try to parse as JSON if there's content
     let result = {};
     if (text && text.trim()) {
       try {
@@ -59,22 +59,24 @@ export const registerApi = async (data) => {
         console.error("JSON parse error:", parseError);
         console.error("Raw response that failed to parse:", text);
         
-        // Check if it's an HTML error page
         if (text.trim().startsWith('<!DOCTYPE')) {
           throw new Error("Server returned HTML error page. Check if backend is running and CORS is configured.");
         }
         
         throw new Error(`Invalid JSON response from server: ${text.substring(0, 100)}...`);
       }
-    } else {
-      console.log("Empty response from server");
     }
 
     if (!response.ok) {
-      throw new Error(result.message || `Registration failed with status ${response.status}`);
+      const errorMessage = result.message || result.error || `Registration failed with status ${response.status}`;
+      throw new Error(errorMessage);
     }
-
-    return result;
+    return {
+      success: true,
+      message: result.message || "Registration successful",
+      ...result
+    };
+    
   } catch (error) {
     console.error("Registration API error:", error);
     throw error;

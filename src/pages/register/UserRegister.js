@@ -82,27 +82,35 @@ function UserRegister() {
   };
 
   // Handle submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!validate()) return;
+  if (!validate()) return;
 
-    try {
-      const response = await registerUser(form);
-
-      if (response.success || response.message) {
-        // Navigate to login on success
-        navigate("/login", { 
-          state: { message: "Registration successful! Please login." } 
-        });
-      }
-
-    } catch (error) {
+  try {
+    const response = await registerUser(form);
+    
+    // Check if registration was successful
+    // The backend might return success flag or just status code
+    if (response && (response.success === true || response.message?.includes("success"))) {
+      // Navigate to login on success
+      navigate("/login", { 
+        state: { message: "Registration successful! Please login." } 
+      });
+    } else {
+      // If we got a response but it's not clearly successful, show error
       setErrors({
-        general: error.message || "Registration failed. Please try again."
+        general: response.message || "Registration failed. Please try again."
       });
     }
-  };
+
+  } catch (error) {
+    // This will catch any network errors or thrown errors from the API
+    setErrors({
+      general: error.message || "Registration failed. Please try again."
+    });
+  }
+};
 
   return (
     <div className="register-wrapper">
@@ -294,3 +302,4 @@ function UserRegister() {
 }
 
 export default UserRegister;
+// 2/25/2026
