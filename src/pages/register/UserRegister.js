@@ -59,7 +59,7 @@ function UserRegister() {
     } else if (!/^\d+$/.test(form.roleNumber)) {
       newErrors.roleNumber = "Role number must be numeric";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -89,7 +89,7 @@ function UserRegister() {
 
     try {
       const response = await registerUser(form);
-      console.log("teju",response);
+
       if (response.success || response.message) {
         // Navigate to login on success
         navigate("/login", { 
@@ -193,7 +193,7 @@ function UserRegister() {
           </div>
 
           {/* PASSWORD */}
-          <div className="input-field">
+          {/* <div className="input-field">
             <label>Password</label>
             <div className="password-wrapper">
               <input
@@ -216,7 +216,34 @@ function UserRegister() {
               <div className="error-message">{errors.password}</div>
             )}
             <span className="input-hint">Minimum 6 characters</span>
-          </div>
+          </div> */}
+
+          <div className="input-field">
+  <label>Password</label>
+
+  <div className="password-wrapper">
+    <input
+      type={showPassword ? "text" : "password"}
+      name="password"
+      placeholder="••••••••"
+      value={form.password}
+      onChange={handleChange}
+      className={errors.password ? "error" : ""}
+      autoComplete="new-password"
+    />
+
+    <span
+  className="password-toggle"
+  onClick={() => setShowPassword((prev) => !prev)}
+>
+  <i className={showPassword ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i>
+</span>
+  </div>
+
+  {errors.password && (
+    <div className="error-message">{errors.password}</div>
+  )}
+</div>
 
           {/* ROLE NAME & ROLE NUMBER - ROW */}
           <div className="form-row">
