@@ -17,8 +17,6 @@ export const loginApi = async (data) => {
 };
 
 
-
-
 export const verifyOtpApi = async (data) => {
   const response = await fetch(`${API_CONFIG.AUTH_BASE_URL}/verify-otp`, {
     method: "POST",

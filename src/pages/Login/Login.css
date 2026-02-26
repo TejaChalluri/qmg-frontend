@@ -243,6 +243,30 @@
   transform: translateX(-2px);
 }
 
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper input {
+  padding-right: 45px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #7c8db5;
+}
+
+.eye-icon:hover {
+  color: #1e2b4f;
+}
+
+
 /* Animations */
 @keyframes slideUp {
   from {
@@ -254,6 +278,7 @@
     transform: translateY(0);
   }
 }
+
 
 @keyframes float {
   0% {

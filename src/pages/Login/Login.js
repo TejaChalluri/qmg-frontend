@@ -10,7 +10,9 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  
 
   const validate = () => {
     let newErrors = {};
@@ -99,26 +101,33 @@ function Login() {
               </div>
             )}
           </div>
+<div className="input-field">
+  <label>Password</label>
 
-          {/* PASSWORD FIELD */}
-          <div className="input-field">
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className={errors.password ? "error" : ""}
-              value={form.password}
-              onChange={(e) => {
-                setForm({ ...form, password: e.target.value });
-                setErrors({ ...errors, password: "", general: "" });
-              }}
-            />
-            {errors.password && (
-              <div className="error-message">
-                {errors.password}
-              </div>
-            )}
-          </div>
+  <div className="password-input-wrapper">
+    <input
+      type={showPassword ? "text" : "password"}
+      placeholder="Enter your password"
+      className={errors.password ? "error" : ""}
+      value={form.password}
+      onChange={(e) => {
+        setForm({ ...form, password: e.target.value });
+        setErrors({ ...errors, password: "", general: "" });
+      }}
+    />
+
+    <span className="eye-icon" 
+        onClick={() => setShowPassword(!showPassword)}>
+        <i className={`fa-solid ${showPassword ? "fa-eye" : "fa-eye-slash"}`}/>
+    </span>
+  </div>
+
+  {errors.password && (
+    <div className="error-message">
+      {errors.password}
+    </div>
+  )}
+</div>
 
           <button className="login-btn" type="submit">
             Sign In

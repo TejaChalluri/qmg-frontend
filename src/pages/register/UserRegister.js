@@ -12,13 +12,13 @@ function UserRegister() {
     username: "",
     email: "",
     password: "",
-    roleName: "",
-    roleNumber: "",
-    isActive: true
+    roleName: "Admin",  // Default to Admin
+    roleNumber: "1",    // Default to 1
   });
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Validation
   const validate = () => {
@@ -38,11 +38,17 @@ function UserRegister() {
       newErrors.username = "Username must be at least 3 characters";
     }
 
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = "Email is invalid";
+    // EMAIL VALIDATION - Only Gmail allowed
+  if (!form.email.trim()) {
+    newErrors.email = "Email is required";
+  } else {
+    const email = form.email.toLowerCase().trim();
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    
+    if (!gmailRegex.test(email)) {
+      newErrors.email = "Only Gmail addresses are allowed (example@gmail.com)";
     }
+  }
 
     if (!form.password) {
       newErrors.password = "Password is required";
@@ -50,20 +56,10 @@ function UserRegister() {
       newErrors.password = "Password must be at least 6 characters";
     }
 
-    if (!form.roleName.trim()) {
-      newErrors.roleName = "Role name is required";
-    }
-
-    if (!form.roleNumber) {
-      newErrors.roleNumber = "Role number is required";
-    } else if (!/^\d+$/.test(form.roleNumber)) {
-      newErrors.roleNumber = "Role number must be numeric";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  
   // Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -81,36 +77,50 @@ function UserRegister() {
     }
   };
 
+  // Handle role selection from dropdown
+  const handleRoleSelect = (roleName, roleNumber) => {
+    setForm({
+      ...form,
+      roleName: roleName,
+      roleNumber: roleNumber
+    });
+    setIsDropdownOpen(false);
+    // Clear any role-related errors
+    if (errors.roleName || errors.roleNumber) {
+      setErrors({ ...errors, roleName: "", roleNumber: "" });
+    }
+  };
+
   // Handle submit
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  if (!validate()) return;
+    if (!validate()) return;
 
-  try {
-    const response = await registerUser(form);
-    
-    // Check if registration was successful
-    // The backend might return success flag or just status code
-    if (response && (response.success === true || response.message?.includes("success"))) {
-      // Navigate to login on success
-      navigate("/login", { 
-        state: { message: "Registration successful! Please login." } 
-      });
-    } else {
-      // If we got a response but it's not clearly successful, show error
+    try {
+      const response = await registerUser(form);
+      
+      // Check if registration was successful
+      // The backend might return success flag or just status code
+      if (response && (response.success === true || response.message?.includes("success"))) {
+        // Navigate to login on success
+        navigate("/login", { 
+          state: { message: "Registration successful! Please login." } 
+        });
+      } else {
+        // If we got a response but it's not clearly successful, show error
+        setErrors({
+          general: response.message || "Registration failed. Please try again."
+        });
+      }
+
+    } catch (error) {
+      // This will catch any network errors or thrown errors from the API
       setErrors({
-        general: response.message || "Registration failed. Please try again."
+        general: error.message || "Registration failed. Please try again."
       });
     }
-
-  } catch (error) {
-    // This will catch any network errors or thrown errors from the API
-    setErrors({
-      general: error.message || "Registration failed. Please try again."
-    });
-  }
-};
+  };
 
   return (
     <div className="register-wrapper">
@@ -122,11 +132,11 @@ const handleSubmit = async (e) => {
 
       <div className="register-card">
         <button
-    className="back-btn"
-    onClick={() => navigate("/login")}
-  >
-    ← Login
-  </button>
+          className="back-btn"
+          onClick={() => navigate("/login")}
+        >
+          ← Login
+        </button>
         <div className="register-header">
           <h2 className="register-title">Create Account</h2>
           <p className="register-subtitle">Join QMG Portal today</p>
@@ -190,11 +200,13 @@ const handleSubmit = async (e) => {
             )}
           </div>
 
+          
+
           {/* EMAIL */}
           <div className="input-field">
             <label>Email Address</label>
             <input
-              type="email"
+              type="text"
               name="email"
               placeholder="john.doe@example.com"
               value={form.email}
@@ -205,80 +217,96 @@ const handleSubmit = async (e) => {
               <div className="error-message">{errors.email}</div>
             )}
           </div>
+
+          {/* PASSWORD */}
           <div className="input-field">
-  <label>Password</label>
-
-  <div className="password-wrapper">
-    <input
-      type={showPassword ? "text" : "password"}
-      name="password"
-      placeholder="••••••••"
-      value={form.password}
-      onChange={handleChange}
-      className={errors.password ? "error" : ""}
-      autoComplete="new-password"
-    />
-
-    <span
-  className="password-toggle"
-  onClick={() => setShowPassword((prev) => !prev)}
->
-  <i className={showPassword ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i>
-</span>
-  </div>
-
-  {errors.password && (
-    <div className="error-message">{errors.password}</div>
-  )}
-</div>
-
-          {/* ROLE NAME & ROLE NUMBER - ROW */}
-          <div className="form-row">
-            <div className="input-field half">
-              <label>Role Name</label>
+            <label>Password</label>
+            <div className="password-wrapper">
               <input
-                type="text"
-                name="roleName"
-                placeholder="Admin / User / Manager"
-                value={form.roleName}
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="••••••••"
+                value={form.password}
                 onChange={handleChange}
-                className={errors.roleName ? "error" : ""}
+                className={errors.password ? "error" : ""}
+                autoComplete="new-password"
               />
-              {errors.roleName && (
-                <div className="error-message">{errors.roleName}</div>
-              )}
+              <span
+                className="password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                <i className={showPassword ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"}></i>
+              </span>
             </div>
+            {errors.password && (
+              <div className="error-message">{errors.password}</div>
+            )}
+          </div>
 
-            <div className="input-field half">
-              <label>Role Number</label>
-              <input
-                type="text"
-                name="roleNumber"
-                placeholder="1, 2, 3..."
-                value={form.roleNumber}
-                onChange={handleChange}
-                className={errors.roleNumber ? "error" : ""}
-              />
-              {errors.roleNumber && (
-                <div className="error-message">{errors.roleNumber}</div>
+{/* ROLE DROPDOWN WITH RADIO BUTTONS */}
+          <div className="input-field">
+            <label>Role</label>
+            <div className="role-dropdown-container">
+              <div 
+                className={`role-dropdown-selected ${isDropdownOpen ? 'active' : ''}`}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span className="selected-role">{form.roleName}</span>
+                <div className="selected-right">
+                  <span className="selected-role-number">role {form.roleNumber}</span>
+                  <span className="dropdown-chevron">{isDropdownOpen ? '▲' : '▼'}</span>
+                </div>
+              </div>
+              
+              {isDropdownOpen && (
+                <div className="role-dropdown-menu">
+                  <div 
+                    className={`role-option ${form.roleName === 'Admin' ? 'selected' : ''}`}
+                    onClick={() => handleRoleSelect('Admin', '1')}
+                  >
+                    <div className="option-content">
+                      <div className="radio-wrapper">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="Admin"
+                          checked={form.roleName === 'Admin'}
+                          onChange={() => {}}
+                        />
+                      </div>
+                      <span className="role-text">Admin</span>
+                      <div className="number-wrapper">
+                        <span className="role-number">1</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div 
+                    className={`role-option ${form.roleName === 'User' ? 'selected' : ''}`}
+                    onClick={() => handleRoleSelect('User', '0')}
+                  >
+                    <div className="option-content">
+                      <div className="radio-wrapper">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="User"
+                          checked={form.roleName === 'User'}
+                          onChange={() => {}}
+                        />
+                      </div>
+                      <span className="role-text">User</span>
+                      <div className="number-wrapper">
+                        <span className="role-number">0</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </div>
 
-          {/* IS ACTIVE - Checkbox */}
-          <div className="checkbox-field">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                name="isActive"
-                checked={form.isActive}
-                onChange={handleChange}
-              />
-              <span className="checkbox-text">Active Account</span>
-            </label>
-            <span className="input-hint">Account will be active immediately</span>
-          </div>
-
+          
           {/* SUBMIT BUTTON */}
           <button type="submit" className="register-btn">
             Create Account
@@ -302,4 +330,3 @@ const handleSubmit = async (e) => {
 }
 
 export default UserRegister;
-// 2/25/2026
