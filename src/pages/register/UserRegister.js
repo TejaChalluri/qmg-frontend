@@ -242,8 +242,6 @@ function UserRegister() {
               <div className="error-message">{errors.password}</div>
             )}
           </div>
-
-{/* ROLE DROPDOWN WITH RADIO BUTTONS */}
           <div className="input-field">
             <label>Role</label>
             <div className="role-dropdown-container">
